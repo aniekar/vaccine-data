@@ -1,19 +1,19 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const vaccinationSchema = mongoose.Schema({
-	vaccinationId: String,
-	gender: String,
-    sourceBottle: String,
-	injected: Date
-})
+  'vaccination-id': String,
+  sourceBottle: String,
+  gender: String,
+  vaccinationDate: Date,
+});
 
 vaccinationSchema.set('toJSON', {
-	transform: (document, returnedObject) => {
-		delete returnedObject._id
-		delete returnedObject.__v
-	},
-})
+  transform: (document, returnedObject) => {
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
-const Vaccination = mongoose.model('Vaccination', vaccinationSchema)
+const Vaccination = mongoose.model('Vaccination', vaccinationSchema);
 
-module.exports = Vaccination 
+module.exports = Vaccination;
