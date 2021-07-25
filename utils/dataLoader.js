@@ -18,7 +18,13 @@ function formatJSON(data) {
   let formattedData = data.split(/\n/).join(',');
   formattedData = '[' + formattedData + ']';
   formattedData = formattedData.replace(',]', ']');
-  return formattedData;
+  let dataJSON = JSON.parse(formattedData);
+  dataJSON.map((o) => {
+    if (o.arrived) {
+      o.arrived = o.arrived.substring(0, 10);
+    }
+  });
+  return dataJSON;
 }
 
 async function loadData() {
@@ -32,9 +38,9 @@ async function loadData() {
       const fileData = fs.readFileSync(filePath, 'utf-8');
       const formattedData = formatJSON(fileData);
       if (file == 'vaccinations.source') {
-        await Vaccination.insertMany(JSON.parse(formattedData));
+        await Vaccination.insertMany(formattedData);
       } else {
-        await Order.insertMany(JSON.parse(formattedData));
+        await Order.insertMany(formattedData);
       }
     }
   } catch (e) {

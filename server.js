@@ -1,7 +1,8 @@
-const { load } = require('dotenv');
-const express = require('express');
+const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
+const typeDefs = require('./graphql/schema')
+const resolvers = require('./graphql/resolvers')
 const config = require('./utils/config');
 const loadData = require('./utils/dataLoader');
 
@@ -20,7 +21,9 @@ mongoose
 
 loadData();
 
-const app = express();
-app.use(express.json());
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
-module.exports = app;
+module.exports = server;
