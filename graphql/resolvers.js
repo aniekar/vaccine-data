@@ -6,22 +6,34 @@ const Vaccination = require('../models/vaccination');
 const resolvers = {
   Query: {
     orderCount: async (root, args) => {
-      let orders;
+      let orderCount;
       if (args.manufacturer) {
-        orders = await Order.collection.countDocuments({
+        orderCount = await Order.collection.countDocuments({
           arrived: {
             $eq: new Date(args.onDate),
           },
           vaccine: args.manufacturer,
         });
       } else {
-        orders = await Order.collection.countDocuments({
+        orderCount = await Order.collection.countDocuments({
           arrived: {
             $eq: new Date(args.onDate),
           },
         });
       }
-      return orders;
+      return orderCount;
+    },
+    vaccineCount: async (root, args) => {
+      let vaccines = await Order.find({
+        arrived: {
+          $eq: new Date(args.onDate),
+        },
+      });
+      if (args.manufacturer) {
+        vaccines = vaccines.filter((v) => v.vaccine === args.manufacturer);
+      }
+      const vaccineCount = vaccines.reduce((a, b) => a + b.injections, 0);
+      return vaccineCount;
     },
   },
 };
