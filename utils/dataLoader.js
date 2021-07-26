@@ -19,14 +19,6 @@ function formatJSON(data) {
   formattedData = '[' + formattedData + ']';
   formattedData = formattedData.replace(',]', ']');
   let dataJSON = JSON.parse(formattedData);
-  dataJSON.map((o) => {
-    if (o.arrived) {
-      o.arrived = o.arrived.substring(0, 10);
-    }
-    if (o.vaccinationDate) {
-      o.vaccinationDate = o.vaccinationDate.substring(0, 10);
-    }
-  });
   return dataJSON;
 }
 

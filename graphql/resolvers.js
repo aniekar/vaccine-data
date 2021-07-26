@@ -6,27 +6,36 @@ const Vaccination = require('../models/vaccination');
 const resolvers = {
   Query: {
     orderCount: async (root, args) => {
+      const chosenDate = new Date(args.onDate);
+      const nextDay = moment(chosenDate).add(1, 'days').toDate();
+
       let orderCount;
       if (args.manufacturer) {
         orderCount = await Order.collection.countDocuments({
           arrived: {
-            $eq: new Date(args.onDate),
+            $gte: chosenDate,
+            $lt: nextDay,
           },
           vaccine: args.manufacturer,
         });
       } else {
         orderCount = await Order.collection.countDocuments({
           arrived: {
-            $eq: new Date(args.onDate),
+            $gte: chosenDate,
+            $lt: nextDay,
           },
         });
       }
       return orderCount;
     },
     vaccineCount: async (root, args) => {
+      const chosenDate = new Date(args.onDate);
+      const nextDay = moment(chosenDate).add(1, 'days').toDate();
+
       let vaccines = await Order.find({
         arrived: {
-          $eq: new Date(args.onDate),
+          $gte: chosenDate,
+          $lt: nextDay,
         },
       });
       if (args.manufacturer) {
@@ -36,9 +45,13 @@ const resolvers = {
       return vaccineCount;
     },
     vaccinesUsed: async (root, args) => {
+      const chosenDate = new Date(args.onDate);
+      const nextDay = moment(chosenDate).add(1, 'days').toDate();
+
       const vaccinations = await Vaccination.collection.countDocuments({
         vaccinationDate: {
-          $eq: new Date(args.onDate),
+          $gte: chosenDate,
+          $lt: nextDay,
         },
       });
       return vaccinations;
