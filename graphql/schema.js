@@ -5,6 +5,7 @@ const typeDefs = gql`
     orderCount(onDate: String!, manufacturer: String): Int!
     vaccineCount(onDate: String!, manufacturer: String): Int!
     vaccinesUsed(onDate: String!): Int!
+    bottlesExpired(onDate: String!): Int!
   }
 `;
 

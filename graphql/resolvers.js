@@ -56,6 +56,20 @@ const resolvers = {
       });
       return vaccinations;
     },
+    bottlesExpired: async (root, args) => {
+      const chosenDate = new Date(args.onDate);
+      const expiringArrivalDate = moment(chosenDate)
+        .subtract(30, 'days')
+        .toDate();
+      const nextDay = moment(expiringArrivalDate).add(1, 'days').toDate();
+      const expiredBottles = await Order.collection.countDocuments({
+        arrived: {
+          $gte: expiringArrivalDate,
+          $lt: nextDay,
+        },
+      });
+      return expiredBottles;
+    },
   },
 };
 
