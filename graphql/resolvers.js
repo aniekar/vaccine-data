@@ -35,6 +35,14 @@ const resolvers = {
       const vaccineCount = vaccines.reduce((a, b) => a + b.injections, 0);
       return vaccineCount;
     },
+    vaccinesUsed: async (root, args) => {
+      const vaccinations = await Vaccination.collection.countDocuments({
+        vaccinationDate: {
+          $eq: new Date(args.onDate),
+        },
+      });
+      return vaccinations;
+    },
   },
 };
 

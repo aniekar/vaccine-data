@@ -23,6 +23,9 @@ function formatJSON(data) {
     if (o.arrived) {
       o.arrived = o.arrived.substring(0, 10);
     }
+    if (o.vaccinationDate) {
+      o.vaccinationDate = o.vaccinationDate.substring(0, 10);
+    }
   });
   return dataJSON;
 }
