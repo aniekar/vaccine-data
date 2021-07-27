@@ -70,6 +70,34 @@ const resolvers = {
       });
       return expiredBottles;
     },
+    vaccinesExpiredBeforeUsage: async (root, args) => {
+      const chosenDate = new Date(args.onDate);
+      const expiringArrivalDate = new Date(args.onDate).setUTCDate(
+        chosenDate.getUTCDate() - 30
+      );
+
+      const expiredBottles = await Order.find({
+        arrived: {
+          $lt: expiringArrivalDate,
+        },
+      });
+
+      const bottleIdentifiers = expiredBottles.map((b) => b.id);
+
+      const usedCount = await Vaccination.collection.countDocuments({
+        vaccinationDate: {
+          $lt: chosenDate,
+        },
+        sourceBottle: { $in: bottleIdentifiers },
+      });
+
+      let numberOfVaccines = expiredBottles.reduce(
+        (a, b) => a + b.injections,
+        0
+      );
+
+      return numberOfVaccines - usedCount;
+    },
   },
 };
 
