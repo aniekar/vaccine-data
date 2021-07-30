@@ -80,11 +80,22 @@ const resolvers = {
         chosenDate.getUTCDate() - 30
       );
 
-      const expiredBottles = await Order.find({
-        arrived: {
-          $lt: expiringArrivalDate,
-        },
-      });
+      let expiredBottles;
+
+      if (args.manufacturer) {
+        expiredBottles = await Order.find({
+          arrived: {
+            $lt: expiringArrivalDate,
+          },
+          vaccine: args.manufacturer,
+        });
+      } else {
+        expiredBottles = await Order.find({
+          arrived: {
+            $lt: expiringArrivalDate,
+          },
+        });
+      }
 
       const bottleIdentifiers = expiredBottles.map((b) => b.id);
 
