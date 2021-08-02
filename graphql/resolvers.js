@@ -3,6 +3,10 @@ const Vaccination = require('../models/vaccination');
 
 const resolvers = {
   Query: {
+    totalOrderCount: async (root, args) => {
+      const orderCount = await Order.collection.countDocuments();
+      return orderCount;
+    },
     orderCount: async (root, args) => {
       const chosenDate = new Date(args.onDate);
       const nextDay = new Date(args.onDate);
