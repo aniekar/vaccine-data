@@ -14,7 +14,8 @@ const client = new ApolloClient({
 
 const query = gql`
   query {
-    totalVaccinationCount
+    vaccineCount(onDate: "2021-03-20")
+    vaccinesExpiringWithinTenDays(onDate: "2021-03-20")
   }
 `;
 
