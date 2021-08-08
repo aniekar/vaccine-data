@@ -8,8 +8,8 @@
   color: #61dafb;
 }
 
-.data-table {
-  margin: 2em 0;
+.data-table, .data-notes {
+  margin: 4em 0;
 }
 
 thead {

@@ -99,6 +99,12 @@ function App() {
         onChange={(date) => handleDateChange(date)}
       />
       {dataForDate && <DataContainer data={dataForDate} />}
+      <div className="data-notes">
+        <h4>Notes on the data:</h4>
+        <p>All dates are UTC.</p>
+        <p>Vaccines left is the number of vaccines in stock at the beginning of the day.</p>
+        <p>The number of orders, vaccines and vaccinations displayed is for the selected date only, whereas the number of expired vaccines is the accumulated number from the start until the selected date.</p>
+      </div>
     </div>
   );
 }
