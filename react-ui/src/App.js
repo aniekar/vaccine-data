@@ -1,4 +1,4 @@
-import { useLazyQuery, gql } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -64,12 +64,15 @@ const DataContainer = ({ data }) => {
 };
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date('2021-01-02'));
   const [dataForDate, setDataForDate] = useState(null);
+  const initialData = useQuery(GET_DATA_FOR_DATE, {
+    variables: { onDate: moment.utc('2021-01-02').format() },
+  });
   const [getData, result] = useLazyQuery(GET_DATA_FOR_DATE);
 
   const handleDateChange = (date) => {
-    const utcStartOfDate = moment(date).utc().startOf('day').format();
+    const utcStartOfDate = moment.utc(date).startOf('day').format();
     setSelectedDate(new Date(utcStartOfDate));
     getData({ variables: { onDate: utcStartOfDate } });
   };
@@ -79,16 +82,19 @@ function App() {
   useEffect(() => {
     if (result.data) {
       setDataForDate(result.data);
-      console.log(result.data);
+    } else if (initialData.data) {
+      setDataForDate(initialData.data);
     }
-  }, [result]);
+  }, [result, initialData]);
 
   return (
     <div className="App">
       <header>
         <h1>Vaccine data</h1>
       </header>
-      <h2>{selectedDate.toJSON().slice(0,10).split('-').reverse().join('/')}</h2>
+      <h2>
+        {selectedDate.toJSON().slice(0, 10).split('-').reverse().join('/')}
+      </h2>
       <DatePicker
         dateFormat="dd/MM/yyyy"
         selected={selectedDate}
