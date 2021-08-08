@@ -76,7 +76,6 @@ const resolvers = {
           },
         });
       }
-      console.log(vaccinations)
       return vaccinations;
     },
     bottlesExpired: async (root, args) => {
@@ -200,9 +199,6 @@ const resolvers = {
           },
         });
       }
-
-      console.log(chosenDate);
-      console.log(expiringArrivalDate);
 
       const bottleIdentifiers = bottles.map((b) => b.id);
 

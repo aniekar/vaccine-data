@@ -3,24 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
     uri: 'http://localhost:3001',
   }),
-});
-
-const query = gql`
-  query {
-    vaccineCount(onDate: "2021-03-20")
-    vaccinesExpiringWithinTenDays(onDate: "2021-03-20")
-  }
-`;
-
-client.query({ query }).then((response) => {
-  console.log(response.data);
 });
 
 ReactDOM.render(

@@ -77,8 +77,6 @@ function App() {
     getData({ variables: { onDate: utcStartOfDate } });
   };
 
-  console.log(selectedDate);
-
   useEffect(() => {
     if (result.data) {
       setDataForDate(result.data);
