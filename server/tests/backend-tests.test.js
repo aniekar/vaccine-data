@@ -6,7 +6,7 @@ const {
   createServer,
 } = require('../server');
 
-jest.setTimeout(90 * 1000);
+jest.setTimeout(90 * 10000);
 
 describe('Backend tests', () => {
   let server;
@@ -68,7 +68,7 @@ describe('Backend tests', () => {
     const response = await query({ query: GET_EXPIRED_VACCINE_COUNT });
     expect(response.data.vaccinesExpiredBeforeUsage).toEqual(12590);
   });
-  test('On 2021-01-02 one vaccination was done', async () => {
+  test('On 2021-01-02 1 vaccination was done', async () => {
     const { query } = createTestClient(server);
 
     const GET_VACCINATION_COUNT_FOR_DATE = `
@@ -79,5 +79,57 @@ describe('Backend tests', () => {
 
     const response = await query({ query: GET_VACCINATION_COUNT_FOR_DATE });
     expect(response.data.vaccinesUsed).toEqual(1);
+  });
+  test('On 2021-04-11 256 vaccines arrived', async () => {
+    const { query } = createTestClient(server);
+
+    const GET_VACCINE_COUNT_FOR_DATE = `
+    {
+        vaccineCount(onDate: "2021-04-11")
+    }
+    `;
+
+    const response = await query({ query: GET_VACCINE_COUNT_FOR_DATE });
+    expect(response.data.vaccineCount).toEqual(256);
+  });
+  test('On 2021-04-11 70 Zerpfy vaccines arrived', async () => {
+    const { query } = createTestClient(server);
+
+    const GET_VACCINE_COUNT_FOR_DATE = `
+    {
+        vaccineCount(onDate: "2021-04-11", manufacturer: "Zerpfy")
+    }
+    `;
+
+    const response = await query({ query: GET_VACCINE_COUNT_FOR_DATE });
+    expect(response.data.vaccineCount).toEqual(70);
+  });
+  test('96 vaccines will expire within 10 days on 2021-01-23', async () => {
+    const { query } = createTestClient(server);
+
+    const GET_VACCINES_EXPIRING_WITHIN_10_DAYS = `
+    {
+      vaccinesExpiringWithinTenDays(onDate: "2021-01-23")
+    }
+    `;
+
+    const response = await query({
+      query: GET_VACCINES_EXPIRING_WITHIN_10_DAYS,
+    });
+    expect(response.data.vaccinesExpiringWithinTenDays).toEqual(96);
+  });
+  test('16 Antiqua vaccines will expire within 10 days on 2021-01-23', async () => {
+    const { query } = createTestClient(server);
+
+    const GET_VACCINES_EXPIRING_WITHIN_10_DAYS = `
+    {
+      vaccinesExpiringWithinTenDays(onDate: "2021-01-23", manufacturer: "Antiqua")
+    }
+    `;
+
+    const response = await query({
+      query: GET_VACCINES_EXPIRING_WITHIN_10_DAYS,
+    });
+    expect(response.data.vaccinesExpiringWithinTenDays).toEqual(16);
   });
 });

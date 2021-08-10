@@ -78,23 +78,6 @@ const resolvers = {
       }
       return vaccinations;
     },
-    bottlesExpired: async (root, args) => {
-      const chosenDate = new Date(args.onDate);
-      const expiringArrivalDate = newDate(args.onDate).setUTCDate(
-        expiringArrivalDate.getUTCDate() - 30
-      );
-      const nextDay = new Date(args.onDate).setUTCDate(
-        chosenDate.getUTCDate() + 1
-      );
-
-      const expiredBottles = await Order.collection.countDocuments({
-        arrived: {
-          $gte: expiringArrivalDate,
-          $lt: nextDay,
-        },
-      });
-      return expiredBottles;
-    },
     vaccinesExpiredBeforeUsage: async (root, args) => {
       const chosenDate = new Date(args.onDate);
       const expiringArrivalDate = new Date(args.onDate).setUTCDate(
@@ -135,6 +118,7 @@ const resolvers = {
       return numberOfVaccines - usedCount;
     },
     vaccinesExpiringWithinTenDays: async (root, args) => {
+      console.log(args);
       const chosenDate = new Date(args.onDate);
       const expiringArrivalDate = new Date(args.onDate).setUTCDate(
         chosenDate.getUTCDate() - 30
@@ -142,6 +126,10 @@ const resolvers = {
       const expiringWithin10Days = new Date(args.onDate).setUTCDate(
         chosenDate.getUTCDate() - 20
       );
+
+      console.log(chosenDate);
+      console.log('expiring ' + expiringArrivalDate);
+      console.log('expiring in 10 ' + expiringWithin10Days);
 
       let expiringBottles;
       if (args.manufacturer) {
@@ -162,6 +150,7 @@ const resolvers = {
       }
 
       const bottleIdentifiers = expiringBottles.map((b) => b.id);
+      console.log('bottles: ' + bottleIdentifiers.length);
 
       const usedCount = await Vaccination.collection.countDocuments({
         vaccinationDate: {
@@ -175,6 +164,9 @@ const resolvers = {
         0
       );
 
+      console.log(numberOfVaccines);
+      console.log('vacs used ' + usedCount);
+      console.log(numberOfVaccines - usedCount);
       return numberOfVaccines - usedCount;
     },
     vaccinesLeft: async (root, args) => {
