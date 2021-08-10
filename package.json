@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "./server/node_modules/.bin/jest ./server/tests/backend-tests.test.js",
     "start": "nodemon server/index.js"
   },
   "author": "Anni Kynsilehto",

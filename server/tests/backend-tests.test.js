@@ -28,7 +28,6 @@ describe('Backend tests', () => {
     `;
 
     const response = await query({ query: GET_VACCINATION_COUNT });
-    console.log(response);
     expect(response.data.totalVaccinationCount).toEqual(7000);
   });
 
@@ -42,7 +41,6 @@ describe('Backend tests', () => {
     `;
 
     const response = await query({ query: GET_ORDER_COUNT });
-    console.log(response);
     expect(response.data.totalOrderCount).toEqual(5000);
   });
 
@@ -56,7 +54,6 @@ describe('Backend tests', () => {
     `;
 
     const response = await query({ query: GET_ORDER_COUNT });
-    console.log(response);
     expect(response.data.orderCount).toEqual(61);
   });
   test('Expired vaccines when counting from 2021-04-12T11:10:06.473587Z should be 12590', async () => {
@@ -69,7 +66,18 @@ describe('Backend tests', () => {
     `;
 
     const response = await query({ query: GET_EXPIRED_VACCINE_COUNT });
-    console.log(response);
     expect(response.data.vaccinesExpiredBeforeUsage).toEqual(12590);
+  });
+  test('On 2021-01-02 one vaccination was done', async () => {
+    const { query } = createTestClient(server);
+
+    const GET_VACCINATION_COUNT_FOR_DATE = `
+    {
+        vaccinesUsed(onDate: "2021-01-02")
+    }
+    `;
+
+    const response = await query({ query: GET_VACCINATION_COUNT_FOR_DATE });
+    expect(response.data.vaccinesUsed).toEqual(1);
   });
 });
