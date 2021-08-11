@@ -1,11 +1,12 @@
 {
   "name": "vaccine-data",
   "version": "1.0.0",
-  "description": "",
+  "description": "Practice application for displaying vaccine-related data",
   "main": "index.js",
   "scripts": {
-    "test": "./server/node_modules/.bin/jest ./server/tests/backend-tests.test.js",
-    "start": "nodemon server/index.js"
+    "test": "cross-env NODE_ENV=test ./server/node_modules/.bin/jest ./server/tests/backend-tests.test.js",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js"
   },
   "author": "Anni Kynsilehto",
   "license": "ISC",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "apollo-server-testing": "^2.25.2",
+    "cross-env": "^7.0.3",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12"
   }
