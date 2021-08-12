@@ -1,17 +1,6 @@
 # Vaccine data 
 
-## The assignment
-
-This is an excercise project done for Solita. The assignment was to do a web app displaying "interesting informaton" regarding vaccine orders and vaccinations. 
-
-*THL has ordered us to create a vaccination database which contains information about vaccine orders and vaccinations.
-We have received files which contains the base data for the application
-The Orders are in different files named by the manufacturer of a vaccine.
-Injections must be used in 30 days after the arrival of the bottle.
-[name].source "Zerpfy"|"Antiqua"|"SolarBuddhica"
-The source file has one json item per line.
-
-Make a web application for presenting some interesting data about the vaccinations.*
+This is an excercise project done for Solita. The assignment was to do a web app displaying "interesting data" regarding vaccine orders and vaccinations. 
 
 ## The implementation
 
