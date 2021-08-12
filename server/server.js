@@ -24,7 +24,6 @@ const connectToMongoDBAndInitializeData = async () => {
 };
 
 const createServer = () => {
-  console.log('creating server')
   const server = new ApolloServer({
     typeDefs,
     resolvers,

@@ -118,7 +118,6 @@ const resolvers = {
       return numberOfVaccines - usedCount;
     },
     vaccinesExpiringWithinTenDays: async (root, args) => {
-      console.log(args);
       const chosenDate = new Date(args.onDate);
       const expiringArrivalDate = new Date(args.onDate).setUTCDate(
         chosenDate.getUTCDate() - 30
@@ -126,10 +125,6 @@ const resolvers = {
       const expiringWithin10Days = new Date(args.onDate).setUTCDate(
         chosenDate.getUTCDate() - 20
       );
-
-      console.log(chosenDate);
-      console.log('expiring ' + expiringArrivalDate);
-      console.log('expiring in 10 ' + expiringWithin10Days);
 
       let expiringBottles;
       if (args.manufacturer) {
@@ -150,7 +145,6 @@ const resolvers = {
       }
 
       const bottleIdentifiers = expiringBottles.map((b) => b.id);
-      console.log('bottles: ' + bottleIdentifiers.length);
 
       const usedCount = await Vaccination.collection.countDocuments({
         vaccinationDate: {
@@ -163,10 +157,7 @@ const resolvers = {
         (a, b) => a + b.injections,
         0
       );
-
-      console.log(numberOfVaccines);
-      console.log('vacs used ' + usedCount);
-      console.log(numberOfVaccines - usedCount);
+      
       return numberOfVaccines - usedCount;
     },
     vaccinesLeft: async (root, args) => {

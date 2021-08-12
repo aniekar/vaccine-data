@@ -104,7 +104,7 @@ describe('Backend tests', () => {
     const response = await query({ query: GET_VACCINE_COUNT_FOR_DATE });
     expect(response.data.vaccineCount).toEqual(70);
   });
-  test('96 vaccines will expire within 10 days on 2021-01-23', async () => {
+  test('96 vaccines will expire within 10 days when counting from 2021-01-23', async () => {
     const { query } = createTestClient(server);
 
     const GET_VACCINES_EXPIRING_WITHIN_10_DAYS = `
@@ -118,7 +118,7 @@ describe('Backend tests', () => {
     });
     expect(response.data.vaccinesExpiringWithinTenDays).toEqual(96);
   });
-  test('16 Antiqua vaccines will expire within 10 days on 2021-01-23', async () => {
+  test('16 Antiqua vaccines will expire within 10 days when counting from 2021-01-23', async () => {
     const { query } = createTestClient(server);
 
     const GET_VACCINES_EXPIRING_WITHIN_10_DAYS = `
