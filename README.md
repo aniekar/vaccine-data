@@ -18,9 +18,11 @@ You'll need to create your own [MongoDB Atlas](https://www.mongodb.com/cloud/atl
 After you have your cluster up and running, you need to add a .env file to the root of your project, specifying the connection string for your cluster, and a separate connection string for a test database for running tests.
 In this setup I've also specified the port in the .env file. If set the port to something other than 3001, remember to also adjust the HTTPLink passed to ApolloClient on in index.js in the react-ui folder. 
 
- `MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
- `TEST_MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myTestDatabase?retryWrites=true&w=majority`
- `PORT=3001`
+ `MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myFirstDatabase?retryWrites=true&w=majority 
+ 
+ TEST_MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myTestDatabase?retryWrites=true&w=majority 
+ 
+ PORT=3001`
 
 The project has separate package.jsons for the frontend and the backend. First, install dependencies :
 
