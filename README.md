@@ -1,6 +1,7 @@
 # Vaccine data 
 
 This is an excercise project done for Solita. The assignment was to do a web app displaying "interesting data" regarding vaccine orders and vaccinations. 
+The assignment gave you quite a lot of freedom as to what to do with the data. In my application I decided to show the total daily numbers of orders, vaccines, vaccinations etc. as well as the same data divided by vaccine type (the data has three different vaccines: Antiqua, SolarBuddhica and Zerpfy).
 
 ## The implementation
 
