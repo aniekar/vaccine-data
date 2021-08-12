@@ -22,7 +22,7 @@ After you have your cluster up and running, you need to add a .env file to the r
 In this setup I've also specified the port for the server in the .env file. If you set the port to something other than 3001, remember to also adjust the HTTPLink passed to ApolloClient in index.js in the react-ui folder. 
 
  MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myFirstDatabase?retryWrites=true&w=majority 
- TEST_MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myTestDatabase?retryWrites=true&w=majority 
+ TEST_MONGODB_URI=mongodb+srv://<username>:<password>@addressofyourcluster.mongodb.net/myTestDatabase?retryWrites=true&w=majority   
  PORT=3001
 
 The project has separate package.jsons for the frontend and the backend. First, install dependencies :
