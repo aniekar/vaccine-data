@@ -50,7 +50,7 @@ Then do the same for the frontend:
 
 To run the tests, run ```npm test``` either in the vaccine-data or the react-ui folder (there are two separate sets of tests).
  
-Please note that you might also need to add a separate .env file with the text ```SKIP_PREFLIGHT_CHECK=true``` to the react-ui folder in case therre is an issue with running the test 
+Please note that since jest is also used for the backend tests, you might need to add a separate .env file with the text ```SKIP_PREFLIGHT_CHECK=true``` to the react-ui folder in case there is an issue with running the frontend tests. 
 
 
 
