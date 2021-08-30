@@ -162,7 +162,7 @@ const resolvers = {
     },
     vaccinesLeft: async (root, args) => {
       const chosenDate = new Date(args.onDate);
-      let expiringArrivalDate = new Date(args.onDate);
+      const expiringArrivalDate = new Date(args.onDate);
       expiringArrivalDate.setUTCDate(chosenDate.getUTCDate() - 30);
 
       let bottles;

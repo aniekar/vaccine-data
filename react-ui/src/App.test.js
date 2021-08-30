@@ -20,7 +20,7 @@ test('Renders Vaccine data title text', () => {
       <App />
     </ApolloProvider>
   );
-  const titleElement = screen.getByText(/Vaccine data/i);
+  const titleElement = screen.getByText(/Vaccine data/);
   expect(titleElement).toBeInTheDocument();
 });
 
@@ -30,6 +30,6 @@ test('Renders the notes on the data section', () => {
       <App />
     </ApolloProvider>
   );
-  const notesElement = screen.getByText(/Notes on the data/i);
+  const notesElement = screen.getByText(/Notes on the data/);
   expect(notesElement).toBeInTheDocument();
 });
